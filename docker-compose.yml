@@ -3,12 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: runtime
+      target: production
     container_name: foodies-api
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=3000
       - DATABASE_URL=postgresql://foodies:foodies_password@db:5432/foodies_db?schema=public
       - JWT_SECRET=your-super-secret-jwt-key-change-in-production
@@ -19,7 +19,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: npm run dev
 
   db:
     image: postgres:16-alpine
