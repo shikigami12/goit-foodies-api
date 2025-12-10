@@ -15,3 +15,4 @@ export {
     FollowerWithFollowerUser,
     FollowerWithFollowedUser,
 } from './FollowerResponse';
+export { TestimonialResponse, TestimonialUser } from './TestimonialResponse';

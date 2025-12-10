@@ -3,7 +3,14 @@ import cors from 'cors';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './middlewares';
-import { authRouter, usersRouter } from './routes';
+import {
+    authRouter,
+    usersRouter,
+    categoriesRouter,
+    areasRouter,
+    ingredientsRouter,
+    testimonialsRouter,
+} from './routes';
 import { swaggerSpec } from './swagger';
 
 const app: Application = express();
@@ -37,6 +44,10 @@ app.get('/health', (req: Request, res: Response) => {
 // API Routes
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/categories', categoriesRouter);
+app.use('/api/areas', areasRouter);
+app.use('/api/ingredients', ingredientsRouter);
+app.use('/api/testimonials', testimonialsRouter);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
