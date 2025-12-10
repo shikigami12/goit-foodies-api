@@ -1,0 +1,46 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: foodies-api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DATABASE_URL=postgresql://foodies:foodies_password@db:5432/foodies_db?schema=public
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_EXPIRES_IN=7d
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/prisma
+    depends_on:
+      db:
+        condition: service_healthy
+    command: npm run dev
+
+  db:
+    image: postgres:16-alpine
+    container_name: foodies-db
+    environment:
+      - POSTGRES_USER=foodies
+      - POSTGRES_PASSWORD=foodies_password
+      - POSTGRES_DB=foodies_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U foodies -d foodies_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
