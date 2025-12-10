@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
+      target: runtime
     container_name: foodies-api
     ports:
       - "3000:3000"
@@ -16,10 +16,6 @@ services:
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/prisma
     depends_on:
       db:
         condition: service_healthy
@@ -33,7 +29,7 @@ services:
       - POSTGRES_PASSWORD=foodies_password
       - POSTGRES_DB=foodies_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
