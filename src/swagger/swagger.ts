@@ -1,4 +1,29 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import path from 'path';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+/**
+ * Get the correct file extension and base path based on environment
+ */
+const getApiPaths = (): string[] => {
+    if (isProduction) {
+        // In production, look for compiled JS files in dist folder
+        return [
+            path.join(__dirname, '../routes/*.js'),
+            path.join(__dirname, '../schemas/*.js'),
+            path.join(__dirname, '../types/*.js'),
+            path.join(__dirname, '../middlewares/*.js'),
+        ];
+    }
+    // In development, look for TS files in src folder
+    return [
+        './src/routes/*.ts',
+        './src/schemas/*.ts',
+        './src/types/*.ts',
+        './src/middlewares/*.ts',
+    ];
+};
 
 /**
  * Swagger/OpenAPI configuration
@@ -32,6 +57,10 @@ Authorization: Bearer <your-jwt-token>
             },
         },
         servers: [
+            {
+                url: process.env.API_URL || 'https://goit-foodies-api-latest.onrender.com',
+                description: 'Production server',
+            },
             {
                 url: 'http://localhost:3000',
                 description: 'Development server',
@@ -70,13 +99,7 @@ Authorization: Bearer <your-jwt-token>
             },
         },
     },
-    // Paths to files containing OpenAPI definitions
-    apis: [
-        './src/routes/*.ts',
-        './src/schemas/*.ts',
-        './src/types/*.ts',
-        './src/middlewares/*.ts',
-    ],
+    apis: getApiPaths(),
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
