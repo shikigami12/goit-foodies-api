@@ -1,7 +1,10 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './middlewares';
+import { authRouter } from './routes';
+import { swaggerSpec } from './swagger';
 
 const app: Application = express();
 
@@ -20,19 +23,19 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'Foodies API Documentation',
+}));
+
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// API Routes (will be added later)
-// app.use('/api/auth', authRouter);
-// app.use('/api/users', usersRouter);
-// app.use('/api/categories', categoriesRouter);
-// app.use('/api/areas', areasRouter);
-// app.use('/api/ingredients', ingredientsRouter);
-// app.use('/api/testimonials', testimonialsRouter);
-// app.use('/api/recipes', recipesRouter);
+// API Routes
+app.use('/api/auth', authRouter);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
