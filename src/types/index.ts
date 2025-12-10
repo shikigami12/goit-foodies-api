@@ -7,3 +7,11 @@ export { CreateRecipeDto, RecipeIngredientDto } from './CreateRecipeDto';
 export { UserResponse } from './UserResponse';
 export { AuthResponse } from './AuthResponse';
 export { PaginatedResponse } from './PaginatedResponse';
+export { UserWithStatsResponse } from './UserWithStatsResponse';
+export {
+    FollowerItem,
+    FollowersResponse,
+    FollowingResponse,
+    FollowerWithFollowerUser,
+    FollowerWithFollowedUser,
+} from './FollowerResponse';

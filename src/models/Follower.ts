@@ -52,8 +52,13 @@ Follower.init(
     }
 );
 
-// Associations - Self-referencing
+// Associations - Self-referencing (many-to-many through Follower)
 User.belongsToMany(User, { through: Follower, as: 'followers', foreignKey: 'userId', otherKey: 'followerId' });
 User.belongsToMany(User, { through: Follower, as: 'following', foreignKey: 'followerId', otherKey: 'userId' });
 
+// Direct associations for querying follower/following details
+Follower.belongsTo(User, { foreignKey: 'followerId', as: 'followerUser' });
+Follower.belongsTo(User, { foreignKey: 'userId', as: 'followedUser' });
+
 export default Follower;
+

@@ -15,6 +15,12 @@ if (!databaseUrl) {
 const sequelize = new Sequelize(databaseUrl, {
     dialect: 'postgres',
     logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    dialectOptions: {
+        ssl: process.env.DB_SSL === 'true' ? {
+            require: true,
+            rejectUnauthorized: false,
+        } : false,
+    },
     pool: {
         max: 5,
         min: 0,
