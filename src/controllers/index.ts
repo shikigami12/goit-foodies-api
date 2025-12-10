@@ -5,4 +5,5 @@ export * as categoriesController from './categories';
 export * as areasController from './areas';
 export * as ingredientsController from './ingredients';
 export * as testimonialsController from './testimonials';
+export * as recipesController from './recipes';
 

@@ -10,6 +10,7 @@ import {
     areasRouter,
     ingredientsRouter,
     testimonialsRouter,
+    recipesRouter,
 } from './routes';
 import { swaggerSpec } from './swagger';
 
@@ -48,6 +49,7 @@ app.use('/api/categories', categoriesRouter);
 app.use('/api/areas', areasRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/testimonials', testimonialsRouter);
+app.use('/api/recipes', recipesRouter);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

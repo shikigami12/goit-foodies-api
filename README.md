@@ -54,13 +54,17 @@ Foodies API is the backend service for a recipe-sharing application. It provides
 3. Fill in environment variables:
    ```env
    PORT=3000
-   DATABASE_URL=postgresql://foodies_user:foodies_password@db:5432/foodies_db
+   NODE_ENV=development
+   DATABASE_URL=postgresql://foodies:foodies_password@localhost:5432/foodies_db
+   DB_SSL=false
    JWT_SECRET=your-super-secret-key
    JWT_EXPIRES_IN=7d
    CLOUDINARY_CLOUD_NAME=your-cloud-name
    CLOUDINARY_API_KEY=your-api-key
    CLOUDINARY_API_SECRET=your-api-secret
    ```
+
+   > **Note:** Set `DB_SSL=true` when connecting to cloud databases (Render, Neon, Supabase, etc.)
 
 ### Running with Docker (Recommended)
 
@@ -79,9 +83,27 @@ The API will be available at:
 # Install dependencies
 npm install
 
+# Sync database schema
+npm run db:sync
+
+# Seed database with initial data
+npm run db:seed
+
 # Start development server (requires external PostgreSQL)
 npm run dev
 ```
+
+### Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start development server with hot reload |
+| `npm run build` | Compile TypeScript to JavaScript |
+| `npm start` | Start production server |
+| `npm run db:sync` | Sync database schema (create tables) |
+| `npm run db:seed` | Seed database with initial data |
+| `npm run typecheck` | Run TypeScript type checking |
+| `npm run lint` | Run ESLint |
 
 ## API Endpoints
 
@@ -132,7 +154,11 @@ goit-foodies-api/
 ├── src/
 │   ├── config/         # Configuration (Cloudinary)
 │   ├── controllers/    # Route handlers
-│   ├── db/             # Database connection
+│   ├── db/             # Database connection & seed
+│   │   ├── seed/       # Seed data (JSON files)
+│   │   ├── sequelize.ts
+│   │   ├── sync.ts
+│   │   └── seed.ts
 │   ├── helpers/        # Utility functions
 │   ├── middlewares/    # Express middlewares
 │   ├── models/         # Sequelize models
@@ -147,6 +173,34 @@ goit-foodies-api/
 ├── Dockerfile
 └── package.json
 ```
+
+## Database
+
+### Models
+
+| Model | Description |
+|-------|-------------|
+| `User` | User accounts with authentication |
+| `Recipe` | Recipe details (title, instructions, thumb, time) |
+| `RecipeIngredient` | Recipe-ingredient junction with measure |
+| `Category` | Recipe categories (Breakfast, Dessert, etc.) |
+| `Area` | Cuisine areas (Italian, Japanese, etc.) |
+| `Ingredient` | Ingredients with description and image |
+| `Favorite` | User's favorite recipes |
+| `Follower` | User follow relationships |
+| `Testimonial` | User testimonials |
+
+### Seeding
+
+The seed data includes:
+- 3 demo users
+- 15 categories
+- 27 areas/regions
+- 200+ ingredients
+- Sample recipes with ingredients
+- Sample testimonials
+
+Run `npm run db:seed` to populate the database.
 
 ## Deployment
 
