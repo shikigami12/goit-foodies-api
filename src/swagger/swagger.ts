@@ -4,24 +4,21 @@ import path from 'path';
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
- * Get the correct file extension and base path based on environment
+ * Get the correct file paths based on environment
+ * In production, use .d.ts files which preserve JSDoc comments (unlike .js files)
  */
 const getApiPaths = (): string[] => {
     if (isProduction) {
-        // In production, look for compiled JS files in dist folder
         return [
             path.join(__dirname, '../routes/*.js'),
-            path.join(__dirname, '../schemas/*.js'),
-            path.join(__dirname, '../types/*.js'),
-            path.join(__dirname, '../middlewares/*.js'),
+            path.join(__dirname, '../schemas/*.d.ts'),
+            path.join(__dirname, '../types/*.d.ts'),
         ];
     }
-    // In development, look for TS files in src folder
     return [
         './src/routes/*.ts',
         './src/schemas/*.ts',
         './src/types/*.ts',
-        './src/middlewares/*.ts',
     ];
 };
 
@@ -84,19 +81,9 @@ Authorization: Bearer <your-jwt-token>
                     description: 'JWT token obtained from login or register',
                 },
             },
-            schemas: {
-                ErrorResponse: {
-                    type: 'object',
-                    required: ['message'],
-                    properties: {
-                        message: {
-                            type: 'string',
-                            description: 'Error message',
-                            example: 'Not found',
-                        },
-                    },
-                },
-            },
+            // Schemas are defined via @openapi JSDoc annotations in:
+            // - src/schemas/*.ts (validation schemas)
+            // - src/types/*.ts (response/request DTOs)
         },
     },
     apis: getApiPaths(),
