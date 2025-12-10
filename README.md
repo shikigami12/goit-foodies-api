@@ -62,9 +62,27 @@ Foodies API is the backend service for a recipe-sharing application. It provides
    CLOUDINARY_CLOUD_NAME=your-cloud-name
    CLOUDINARY_API_KEY=your-api-key
    CLOUDINARY_API_SECRET=your-api-secret
+   CORS_ORIGIN=https://your-frontend.com
    ```
 
    > **Note:** Set `DB_SSL=true` when connecting to cloud databases (Render, Neon, Supabase, etc.)
+
+### CORS Configuration
+
+The API supports Cross-Origin Resource Sharing (CORS) for frontend applications.
+
+| `CORS_ORIGIN` Value | Behavior |
+|---------------------|----------|
+| Not set | Allows all origins (`*`) |
+| Single URL | `https://example.com` |
+| Multiple URLs | `https://example.com,http://localhost:3000` |
+
+**Example for production:**
+```env
+CORS_ORIGIN=https://foodies.shikigami.me,http://localhost:3000,http://localhost:5173,https://goit-foodies-api-latest.onrender.com
+```
+
+> **Note:** Swagger UI and tools like Postman/curl work regardless of CORS settings (requests without `origin` header are always allowed).
 
 ### Running with Docker (Recommended)
 

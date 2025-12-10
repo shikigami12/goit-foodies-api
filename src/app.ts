@@ -17,9 +17,26 @@ import { swaggerSpec } from './swagger';
 const app: Application = express();
 
 // CORS configuration
+const corsOrigin = process.env.CORS_ORIGIN;
+const allowedOrigins = corsOrigin ? corsOrigin.split(',').map(o => o.trim()) : ['*'];
+
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN || '*',
+        origin: (origin, callback) => {
+            // Allow requests with no origin (Swagger, Postman, curl, etc.)
+            if (!origin) {
+                return callback(null, true);
+            }
+            // Allow all origins if '*' is in the list
+            if (allowedOrigins.includes('*')) {
+                return callback(null, true);
+            }
+            // Check if origin is in allowed list
+            if (allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+            callback(new Error('Not allowed by CORS'));
+        },
         credentials: true,
     })
 );
