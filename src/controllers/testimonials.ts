@@ -14,7 +14,7 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
                 attributes: ['id', 'name', 'avatar'],
             },
         ],
-        order: [['createdAt', 'DESC']],
+        order: [['created_at', 'DESC']],
     });
 
     res.json(testimonials);

@@ -66,7 +66,7 @@ export const searchRecipes = async (req: Request, res: Response): Promise<void> 
         include: recipeListIncludes,
         limit,
         offset,
-        order: [['createdAt', 'DESC']],
+        order: [['created_at', 'DESC']],
         distinct: true,
     });
 
@@ -238,7 +238,7 @@ export const getOwnRecipes = async (
         include: recipeListIncludes,
         limit,
         offset,
-        order: [['createdAt', 'DESC']],
+        order: [['created_at', 'DESC']],
         distinct: true,
     });
 
@@ -336,7 +336,7 @@ export const getFavorites = async (
         attributes: ['recipeId'],
         limit,
         offset,
-        order: [['createdAt', 'DESC']],
+        order: [['created_at', 'DESC']],
     });
 
     const recipeIds = favorites.map((f) => f.recipeId);
