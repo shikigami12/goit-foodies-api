@@ -170,12 +170,29 @@ router.get('/', ctrlWrapper(recipesController.searchRecipes));
  *                 type: string
  *                 description: Cooking time (e.g., "30 mins")
  *               ingredients:
- *                 type: string
- *                 description: JSON array of ingredients
+ *                 type: array
+ *                 description: List of ingredients with measurements
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - ingredientId
+ *                     - measure
+ *                   properties:
+ *                     ingredientId:
+ *                       type: string
+ *                       format: uuid
+ *                       description: ID of the ingredient
+ *                     measure:
+ *                       type: string
+ *                       description: Measurement amount (e.g., "100g")
  *               thumb:
  *                 type: string
  *                 format: binary
  *                 description: Recipe thumbnail image
+ *           encoding:
+ *             ingredients:
+ *               style: deepObject
+ *               explode: true
  *     responses:
  *       201:
  *         description: Recipe created successfully
