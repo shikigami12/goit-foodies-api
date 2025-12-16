@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { recipesController } from '../controllers';
-import { auth, upload, validateBody } from '../middlewares';
+import { auth, upload, validateBody, parseJsonFields } from '../middlewares';
 import { ctrlWrapper } from '../helpers';
 import { createRecipeSchema } from '../schemas';
 
@@ -170,29 +170,13 @@ router.get('/', ctrlWrapper(recipesController.searchRecipes));
  *                 type: string
  *                 description: Cooking time (e.g., "30 mins")
  *               ingredients:
- *                 type: array
- *                 description: List of ingredients with measurements
- *                 items:
- *                   type: object
- *                   required:
- *                     - ingredientId
- *                     - measure
- *                   properties:
- *                     ingredientId:
- *                       type: string
- *                       format: uuid
- *                       description: ID of the ingredient
- *                     measure:
- *                       type: string
- *                       description: Measurement amount (e.g., "100g")
+ *                 type: string
+ *                 description: JSON string array of ingredients with measurements. Example - [{"ingredientId":"uuid-here","measure":"100g"}]
+ *                 example: '[{"ingredientId":"550e8400-e29b-41d4-a716-446655440000","measure":"100g"},{"ingredientId":"550e8400-e29b-41d4-a716-446655440001","measure":"2 cups"}]'
  *               thumb:
  *                 type: string
  *                 format: binary
  *                 description: Recipe thumbnail image
- *           encoding:
- *             ingredients:
- *               style: deepObject
- *               explode: true
  *     responses:
  *       201:
  *         description: Recipe created successfully
@@ -217,6 +201,7 @@ router.post(
     '/',
     auth,
     upload.single('thumb'),
+    parseJsonFields(['ingredients']),
     validateBody(createRecipeSchema),
     ctrlWrapper(recipesController.createRecipe)
 );
