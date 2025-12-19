@@ -1,76 +1,107 @@
-[{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f8a"
+[
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f8a"
+    },
+    "name": "Seafood",
+    "description": "Dive into the ocean of flavors with our exquisite seafood collection. Fresh, succulent, and full of the sea's briny essence, these dishes are a true delicacy."
   },
-  "name": "Seafood"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f8b"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f8b"
+    },
+    "name": "Lamb",
+    "description": "Savor the rich, tender taste of premium lamb. Perfect for roasting, grilling, or stewing, our lamb recipes promise a hearty and satisfying meal."
   },
-  "name": "Lamb"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f8c"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f8c"
+    },
+    "name": "Starter",
+    "description": "Kick off your meal with a bang! Our starters are designed to tantalize your taste buds and set the stage for an unforgettable dining experience."
   },
-  "name": "Starter"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f8d"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f8d"
+    },
+    "name": "Chicken",
+    "description": "Versatile and delicious, our chicken recipes cover everything from comfort food classics to exotic new favorites. A staple for any kitchen."
   },
-  "name": "Chicken"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f8e"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f8e"
+    },
+    "name": "Beef",
+    "description": "Experience the bold and robust flavors of our best beef dishes. Whether it's a juicy steak or a slow-cooked stew, satisfaction is guaranteed."
   },
-  "name": "Beef"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f8f"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f8f"
+    },
+    "name": "Dessert",
+    "description": "Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires."
   },
-  "name": "Dessert"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f90"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f90"
+    },
+    "name": "Vegan",
+    "description": "Plant-based perfection! Explore our vibrant vegan recipes that prove you don't need animal products to create mouthwatering, nutritious meals."
   },
-  "name": "Vegan"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f91"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f91"
+    },
+    "name": "Pork",
+    "description": "Indulge in the savory goodness of pork. From crispy bacon to tender roasts, our recipes celebrate the versatility and flavor of this beloved meat."
   },
-  "name": "Pork"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f92"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f92"
+    },
+    "name": "Vegetarian",
+    "description": "Fresh, colorful, and meat-free! key into our vegetarian selection where vegetables take center stage, offering both health benefits and incredible taste."
   },
-  "name": "Vegetarian"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f93"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f93"
+    },
+    "name": "Miscellaneous",
+    "description": "A treasure trove of culinary curiosities! Discover unique recipes that defy categorization but promise to delight your palate with every bite."
   },
-  "name": "Miscellaneous"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f94"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f94"
+    },
+    "name": "Pasta",
+    "description": "Twirl your fork into happiness with our pasta dishes. From creamy sauces to zesty tomato bases, we bring the authentic taste of Italy to your table."
   },
-  "name": "Pasta"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f95"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f95"
+    },
+    "name": "Breakfast",
+    "description": "Rise and shine with our breakfast favorites. Whether you prefer sweet or savory, we have the perfect morning meal to start your day right."
   },
-  "name": "Breakfast"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f96"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f96"
+    },
+    "name": "Side",
+    "description": "The perfect companions to your main course. Our side dishes are crafted to complement and elevate your meal, adding flavor and variety to your plate."
   },
-  "name": "Side"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f97"
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f97"
+    },
+    "name": "Goat",
+    "description": "Discover the distinct and earthy flavor of goat meat. Our recipes guide you through preparing this nutritious protein in delicious and traditional ways."
   },
-  "name": "Goat"
-},{
-  "_id": {
-    "$oid": "6462a6cd4c3d0ddd28897f98"
-  },
-  "name": "Soup"
-}]
+  {
+    "_id": {
+      "$oid": "6462a6cd4c3d0ddd28897f98"
+    },
+    "name": "Soup",
+    "description": "Warm your soul with a bowl of our homemade soup. From hearty stews to light broths, comfort comes in many flavors in our soup collection."
+  }
+]
