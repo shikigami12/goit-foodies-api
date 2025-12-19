@@ -5,14 +5,16 @@ interface CategoryAttributes {
     id: string;
     name: string;
     thumb: string | null;
+    description: string | null;
 }
 
-interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id' | 'thumb'> { }
+interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id' | 'thumb' | 'description'> { }
 
 class Category extends Model<CategoryAttributes, CategoryCreationAttributes> implements CategoryAttributes {
     public id!: string;
     public name!: string;
     public thumb!: string | null;
+    public description!: string | null;
 }
 
 Category.init(
@@ -29,6 +31,10 @@ Category.init(
         },
         thumb: {
             type: DataTypes.STRING(500),
+            allowNull: true,
+        },
+        description: {
+            type: DataTypes.TEXT,
             allowNull: true,
         },
     },

@@ -59,8 +59,8 @@ async function seed() {
     try {
         console.log('🌱 Starting database seed...\n');
 
-        // Sync database (create tables if they don't exist)
-        await sequelize.sync();
+        // Sync database (create tables if they don't exist, alter if they do)
+        await sequelize.sync({ alter: true });
 
         // Maps to store ID conversions
         const userIdMap = new Map<string, string>();
@@ -127,14 +127,19 @@ async function seed() {
                     id: uuid,
                     name: categoryData.name,
                     thumb: thumbUrl,
+                    description: (categoryData as any).description,
                 });
-            } else if (!existingCategory.thumb) {
-                // Update existing category that has no image
+            } else {
+                // Update existing category
                 const thumbUrl = await uploadCategoryImage();
-                if (thumbUrl) {
-                    await existingCategory.update({ thumb: thumbUrl });
+                const updates: any = { description: (categoryData as any).description };
+                
+                if (!existingCategory.thumb && thumbUrl) {
+                    updates.thumb = thumbUrl;
                     console.log(`   🔄 Updated image for existing category ${categoryData.name}`);
                 }
+                
+                await existingCategory.update(updates);
             }
         }
         console.log(`   ✓ ${categoriesData.length} categories processed\n`);
