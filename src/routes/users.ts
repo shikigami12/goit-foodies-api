@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { usersController } from '../controllers';
-import { auth, upload } from '../middlewares';
-import { ctrlWrapper } from '../helpers';
+import { Router } from "express";
+import { usersController } from "../controllers";
+import { auth, upload } from "../middlewares";
+import { ctrlWrapper } from "../helpers";
 
 const router = Router();
 
@@ -29,7 +29,7 @@ const router = Router();
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/current', auth, ctrlWrapper(usersController.getCurrentUser));
+router.get("/current", auth, ctrlWrapper(usersController.getCurrentUser));
 
 /**
  * @openapi
@@ -55,7 +55,7 @@ router.get('/current', auth, ctrlWrapper(usersController.getCurrentUser));
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/following', auth, ctrlWrapper(usersController.getFollowing));
+router.get("/following", auth, ctrlWrapper(usersController.getFollowing));
 
 /**
  * @openapi
@@ -98,7 +98,12 @@ router.get('/following', auth, ctrlWrapper(usersController.getFollowing));
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.patch('/avatar', auth, upload.single('avatar'), ctrlWrapper(usersController.updateAvatar));
+router.patch(
+  "/avatar",
+  auth,
+  upload.single("avatar"),
+  ctrlWrapper(usersController.updateAvatar)
+);
 
 /**
  * @openapi
@@ -153,7 +158,7 @@ router.patch('/avatar', auth, upload.single('avatar'), ctrlWrapper(usersControll
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:id', auth, ctrlWrapper(usersController.getUserById));
+router.get("/:id", auth, ctrlWrapper(usersController.getUserById));
 
 /**
  * @openapi
@@ -193,11 +198,11 @@ router.get('/:id', auth, ctrlWrapper(usersController.getUserById));
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:id/followers', auth, ctrlWrapper(usersController.getFollowers));
+router.get("/:id/followers", auth, ctrlWrapper(usersController.getFollowers));
 
 /**
  * @openapi
- * /api/users/{id}/follow:
+ * /api/users/{id}/followers:
  *   post:
  *     tags:
  *       - Users
@@ -249,11 +254,11 @@ router.get('/:id/followers', auth, ctrlWrapper(usersController.getFollowers));
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/:id/follow', auth, ctrlWrapper(usersController.followUser));
+router.post("/:id/followers", auth, ctrlWrapper(usersController.followUser));
 
 /**
  * @openapi
- * /api/users/{id}/follow:
+ * /api/users/{id}/followers:
  *   delete:
  *     tags:
  *       - Users
@@ -285,6 +290,10 @@ router.post('/:id/follow', auth, ctrlWrapper(usersController.followUser));
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.delete('/:id/follow', auth, ctrlWrapper(usersController.unfollowUser));
+router.delete(
+  "/:id/followers",
+  auth,
+  ctrlWrapper(usersController.unfollowUser)
+);
 
 export default router;

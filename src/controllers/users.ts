@@ -203,7 +203,7 @@ export const getFollowing = async (
 
 /**
  * Follow a user
- * @route POST /api/users/:id/follow
+ * @route POST /api/users/:id/followers
  */
 export const followUser = async (
     req: AuthenticatedRequest,
@@ -250,7 +250,7 @@ export const followUser = async (
 
 /**
  * Unfollow a user
- * @route DELETE /api/users/:id/follow
+ * @route DELETE /api/users/:id/followers
  */
 export const unfollowUser = async (
     req: AuthenticatedRequest,
