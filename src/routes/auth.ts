@@ -94,30 +94,6 @@ router.post('/login', validateBody(loginSchema), ctrlWrapper(authController.logi
  */
 router.post('/logout', auth, ctrlWrapper(authController.logout));
 
-/**
- * @openapi
- * /api/auth/current:
- *   get:
- *     tags:
- *       - Auth
- *     summary: Get current user
- *     description: Returns the currently authenticated user's information
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Current user data
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/UserResponse'
- *       401:
- *         description: Not authorized
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-router.get('/current', auth, ctrlWrapper(authController.current));
+
 
 export default router;

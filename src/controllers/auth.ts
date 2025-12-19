@@ -120,19 +120,4 @@ export const logout = async (
     res.status(204).send();
 };
 
-/**
- * Get current user (for testing auth)
- * @route GET /api/auth/current
- */
-export const current = async (
-    req: AuthenticatedRequest,
-    res: Response
-): Promise<void> => {
-    const user = req.user;
 
-    if (!user) {
-        throw HttpErrors.Unauthorized('Not authorized');
-    }
-
-    res.json(formatUserResponse(user as User));
-};
