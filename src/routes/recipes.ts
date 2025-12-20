@@ -57,6 +57,40 @@ router.get('/own', auth, ctrlWrapper(recipesController.getOwnRecipes));
 
 /**
  * @openapi
+ * /api/recipes/user/{userId}:
+ *   get:
+ *     tags:
+ *       - Recipes
+ *     summary: Get recipes by user ID
+ *     description: Returns recipes created by a specific user (public endpoint)
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: User ID
+ *       - $ref: '#/components/parameters/PageParam'
+ *       - $ref: '#/components/parameters/LimitParam'
+ *     responses:
+ *       200:
+ *         description: User's recipes with pagination
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PaginatedRecipes'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.get('/user/:userId', ctrlWrapper(recipesController.getRecipesByUserId));
+
+/**
+ * @openapi
  * /api/recipes/favorites:
  *   get:
  *     tags:
