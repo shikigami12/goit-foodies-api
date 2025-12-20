@@ -62,6 +62,7 @@ export const getUserById = async (
     res: Response
 ): Promise<void> => {
     const { id } = req.params;
+    const currentUserId = req.user?.id;
 
     const user = await User.findByPk(id);
 
@@ -75,6 +76,18 @@ export const getUserById = async (
         Follower.count({ where: { userId: id } }),
     ]);
 
+    // Check if current user is following this user (only if authenticated)
+    let isFollowing = false;
+    if (currentUserId && currentUserId !== id) {
+        const followRecord = await Follower.findOne({
+            where: {
+                userId: id,
+                followerId: currentUserId,
+            },
+        });
+        isFollowing = !!followRecord;
+    }
+
     res.json({
         id: user.id,
         name: user.name,
@@ -82,6 +95,7 @@ export const getUserById = async (
         avatar: user.avatar,
         recipesCount,
         followersCount,
+        isFollowing,
     });
 };
 
