@@ -252,6 +252,44 @@ export const getOwnRecipes = async (
 };
 
 /**
+ * Get recipes by user ID (public)
+ * @route GET /api/recipes/user/:userId
+ */
+export const getRecipesByUserId = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    const { userId } = req.params;
+
+    // Check if user exists
+    const user = await User.findByPk(userId);
+    if (!user) {
+        throw HttpErrors.NotFound('User not found');
+    }
+
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+    const offset = (page - 1) * limit;
+
+    const { rows: recipes, count: total } = await Recipe.findAndCountAll({
+        where: { ownerId: userId },
+        include: recipeListIncludes,
+        limit,
+        offset,
+        order: [['created_at', 'DESC']],
+        distinct: true,
+    });
+
+    res.json({
+        recipes,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+    });
+};
+
+/**
  * Add recipe to favorites
  * @route POST /api/recipes/:id/favorite
  */
