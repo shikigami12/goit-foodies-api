@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { usersController } from "../controllers";
-import { auth, upload } from "../middlewares";
+import { auth, optionalAuth, upload } from "../middlewares";
 import { ctrlWrapper } from "../helpers";
 
 const router = Router();
@@ -112,9 +112,7 @@ router.patch(
  *     tags:
  *       - Users
  *     summary: Get user by ID
- *     description: Returns public info about another user
- *     security:
- *       - bearerAuth: []
+ *     description: Returns public info about a user. If authenticated, also returns whether the current user is following this user.
  *     parameters:
  *       - in: path
  *         name: id
@@ -145,12 +143,9 @@ router.patch(
  *                   type: integer
  *                 followersCount:
  *                   type: integer
- *       401:
- *         description: Not authorized
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *                 isFollowing:
+ *                   type: boolean
+ *                   description: Whether the current user is following this user (only present if authenticated)
  *       404:
  *         description: User not found
  *         content:
@@ -158,7 +153,7 @@ router.patch(
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get("/:id", auth, ctrlWrapper(usersController.getUserById));
+router.get("/:id", optionalAuth, ctrlWrapper(usersController.getUserById));
 
 /**
  * @openapi

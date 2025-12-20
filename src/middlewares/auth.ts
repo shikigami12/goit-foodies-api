@@ -62,4 +62,45 @@ const auth = async (
     }
 };
 
+/**
+ * Optional authentication middleware.
+ * Attempts to verify JWT token but continues even if not present or invalid.
+ * Attaches user to request if valid token is provided.
+ *
+ * @example
+ * // Route that works for both authenticated and unauthenticated users
+ * router.get('/user/:id', optionalAuth, userController.getUserById);
+ */
+export const optionalAuth = async (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    const { authorization = '' } = req.headers;
+    const [bearer, token] = authorization.split(' ');
+
+    if (bearer !== 'Bearer' || !token) {
+        next();
+        return;
+    }
+
+    try {
+        const jwtSecret = process.env.JWT_SECRET;
+        if (!jwtSecret) {
+            next();
+            return;
+        }
+
+        const { id } = jwt.verify(token, jwtSecret) as JwtPayload;
+        const user = await User.findByPk(id);
+
+        if (user && user.token === token) {
+            req.user = user;
+        }
+        next();
+    } catch (error) {
+        next();
+    }
+};
+
 export default auth;
