@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { MulterError } from 'multer';
 import { HttpError } from '../helpers';
 
 /**
@@ -7,6 +8,11 @@ import { HttpError } from '../helpers';
 interface ErrorResponse {
     message: string;
 }
+
+/**
+ * Maximum file size in MB (must match upload.ts config)
+ */
+const MAX_FILE_SIZE_MB = 5;
 
 /**
  * Global error handler middleware.
@@ -78,6 +84,40 @@ const errorHandler = (
     // Handle custom HttpError
     if (err instanceof HttpError) {
         res.status(err.status).json({ message: err.message });
+        return;
+    }
+
+    // Handle Multer errors (file upload)
+    if (err instanceof MulterError) {
+        let message = 'File upload error';
+
+        switch (err.code) {
+            case 'LIMIT_FILE_SIZE':
+                message = `File too large. Maximum size is ${MAX_FILE_SIZE_MB}MB`;
+                break;
+            case 'LIMIT_FILE_COUNT':
+                message = 'Too many files uploaded';
+                break;
+            case 'LIMIT_UNEXPECTED_FILE':
+                message = 'Unexpected file field';
+                break;
+            case 'LIMIT_PART_COUNT':
+                message = 'Too many parts in multipart request';
+                break;
+            case 'LIMIT_FIELD_KEY':
+                message = 'Field name too long';
+                break;
+            case 'LIMIT_FIELD_VALUE':
+                message = 'Field value too long';
+                break;
+            case 'LIMIT_FIELD_COUNT':
+                message = 'Too many fields';
+                break;
+            default:
+                message = err.message || 'File upload error';
+        }
+
+        res.status(400).json({ message });
         return;
     }
 
