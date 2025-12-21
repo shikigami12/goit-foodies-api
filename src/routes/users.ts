@@ -163,8 +163,6 @@ router.get("/:id", optionalAuth, ctrlWrapper(usersController.getUserById));
  *       - Users
  *     summary: Get user's followers
  *     description: Returns list of users following the specified user
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -180,12 +178,6 @@ router.get("/:id", optionalAuth, ctrlWrapper(usersController.getUserById));
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/FollowersResponse'
- *       401:
- *         description: Not authorized
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
  *       404:
  *         description: User not found
  *         content:
@@ -193,7 +185,7 @@ router.get("/:id", optionalAuth, ctrlWrapper(usersController.getUserById));
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get("/:id/followers", auth, ctrlWrapper(usersController.getFollowers));
+router.get("/:id/followers", optionalAuth, ctrlWrapper(usersController.getFollowers));
 
 /**
  * @openapi
